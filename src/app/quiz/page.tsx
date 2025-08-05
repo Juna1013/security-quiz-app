@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, XCircle, Clock, ArrowRight } from 'lucide-react'
-import { useQuiz } from '@/lib/useQuiz'
+import { useQuiz } from '/Users/Juna1013/bin/security-quiz-app/lib/useQuiz.ts'
 
 export default function QuizPage() {
   const router = useRouter()

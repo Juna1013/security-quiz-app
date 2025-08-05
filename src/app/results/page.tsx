@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Trophy, RefreshCw, Home, CheckCircle, XCircle, Award } from 'lucide-react'
-import { QuizResult } from '@/types/quiz'
+import { QuizResult } from '/Users/Juna1013/bin/security-quiz-app/lib/useQuiz.ts'
 
 export default function ResultPage() {
   const router = useRouter()
