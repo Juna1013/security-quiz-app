@@ -9,7 +9,7 @@ export default function NotFound() {
         <div className="bg-blue-500 px-2 text-sm rounded rotate-12 absolute">Page Not Found</div>
         <p className="mt-4 text-center text-lg">お探しのページは、どうやら迷子になってしまったようです。</p>
         <Link href="/">
-            <a className="mt-6 px-6 py-3 text-lg font-medium text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">
+            <a className="mt-12 px-6 py-3 text-lg font-medium text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300">
                 トップページに戻る
             </a>
         </Link>

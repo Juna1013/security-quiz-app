@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen`}>
         <header className="bg-blue-900 text-white shadow-lg">
           <div className="container mx-auto px-4 py-4">
-            <h1 className="text-2xl font-bold">茨城県警 サイバーセキュリティクイズ</h1>
+            <h1 className="text-2xl font-bold">Cyber Security Quiz</h1>
           </div>
         </header>
         <main className="container mx-auto px-4 py-8">
