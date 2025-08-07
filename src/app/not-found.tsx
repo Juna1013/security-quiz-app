@@ -13,7 +13,7 @@ export default function NotFound() {
                     <h1 className="text-8xl md:text-9xl font-extrabold text-gray-300 dark:text-gray-700 tracking-widest select-none">
                         404
                     </h1>
-                    <div className="bg-gradient-to-r from-red-500 to-pink-500 px-4 py-1 text-sm text-white rounded-lg rotate-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg">
+                    <div className="bg-gradient-to-r from-blue-600 to-sky-400 px-4 py-1 text-sm text-white rounded-lg rotate-12 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-lg">
                         Page Not Found
                     </div>
                 </div>
@@ -23,16 +23,15 @@ export default function NotFound() {
                     <p className="text-xl font-medium text-gray-800 dark:text-gray-200">
                         お探しのページが見つかりません
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">
-                        申し訳ございません。お探しのページは削除されたか、URLが間違っている可能性があります。
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">お探しのページは削除されたか、</p>
+                    <p className="text-gray-600 dark:text-gray-400">URLが間違っている可能性があります。</p>
                 </div>
 
                 {/* アクションボタン */}
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <Link
                         href="/"
-                        className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-sky-400 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
                     >
                         <svg 
                             className="w-4 h-4 mr-2" 
@@ -42,23 +41,8 @@ export default function NotFound() {
                         >
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
-                        ホームに戻る
+                        Homeに戻る
                     </Link>
-                    
-                    <button
-                        onClick={() => window.history.back()}
-                        className="inline-flex items-center px-6 py-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
-                    >
-                        <svg 
-                            className="w-4 h-4 mr-2" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            viewBox="0 0 24 24"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        前のページに戻る
-                    </button>
                 </div>
 
                 {/* 追加情報 */}
@@ -73,19 +57,12 @@ export default function NotFound() {
                         >
                             サイトについて
                         </Link>
-                        <span className="text-gray-400">•</span>
+                        <span className="text-gray-400">/</span>
                         <Link
                             href="/contact"
                             className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
                         >
                             お問い合わせ
-                        </Link>
-                        <span className="text-gray-400">•</span>
-                        <Link
-                            href="/sitemap"
-                            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                        >
-                            サイトマップ
                         </Link>
                     </div>
                 </div>
