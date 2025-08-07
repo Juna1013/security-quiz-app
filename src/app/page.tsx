@@ -50,7 +50,7 @@ export default function Home() {
           className="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200"
         >
           <Play className="w-6 h-6 mr-2"/>
-          クイズを開始する
+          Start
         </Link>
         <p className="mt-4 text-sm text-gray-500">所要時間: 1分程度</p>
         <p className="mt-2 text-sm text-gray-500">問題数: 全3問</p>
