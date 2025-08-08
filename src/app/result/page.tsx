@@ -6,6 +6,11 @@ import Link from 'next/link'
 import { RefreshCw, Home, CheckCircle, XCircle, Award } from 'lucide-react'
 import { QuizResult } from '../../../types/quiz'
 
+export const metadata = {
+  title: 'クイズ結果 | 茨城県警セキュリティクイズ',
+  description: 'クイズの結果を確認しましょう',
+}
+
 export default function ResultPage() {
   const router = useRouter()
   const [result, setResult] = useState<QuizResult | null>(null)

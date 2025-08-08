@@ -5,6 +5,11 @@ import { useRouter } from 'next/navigation'
 import { CheckCircle, XCircle, Clock, ArrowRight } from 'lucide-react'
 import { useQuiz } from '../../../lib/useQuiz'
 
+export const metadata = {
+  title: 'クイズ実行中 | 茨城県警セキュリティクイズ',
+  description: 'サイバーセキュリティに関するクイズに挑戦中です',
+}
+
 export default function QuizPage() {
   const router = useRouter()
   const { 
