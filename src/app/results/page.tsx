@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Trophy, RefreshCw, Home, CheckCircle, XCircle, Award } from 'lucide-react'
-import { useQuiz } from '../../../lib/useQuiz'
 import { QuizResult } from '../../../types/quiz'
 
 export default function ResultPage() {
@@ -162,52 +161,51 @@ export default function ResultPage() {
                   <div className="bg-white rounded-lg p-4 border border-gray-200">
                     <p className="text-sm font-medium text-gray-700 mb-2">解説:</p>
                     <p className="text-gray-700 leading-relaxed">
-                     {answered.question.explanation}
-                   </p>
-                 </div>
-               </div>
-             </div>
-           </div>
-         ))}
-       </div>
-     </div>
+                      {answered.question.explanation}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
      {/* アクションボタン */}
-     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-       <button
-         onClick={() => {
-           sessionStorage.removeItem('quizResult')
-           router.push('/quiz')
-         }}
-         className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200"
-       >
-         <RefreshCw className="w-5 h-5 mr-2" />
-         もう一度挑戦する
-       </button>
-       
-       <Link
-         href="/"
-         className="flex items-center justify-center px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-700 transform hover:scale-105 transition-all duration-200"
-       >
-         <Home className="w-5 h-5 mr-2" />
-         ホームに戻る
-       </Link>
-     </div>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <button
+          onClick={() => {
+          sessionStorage.removeItem('quizResult')
+          router.push('/quiz')
+          }}
+          className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-200"
+        >
+        <RefreshCw className="w-5 h-5 mr-2" />
+          もう一度挑戦する
+        </button>
+        <Link
+          href="/"
+          className="flex items-center justify-center px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-700 transform hover:scale-105 transition-all duration-200"
+        >
+          <Home className="w-5 h-5 mr-2" />
+          ホームに戻る
+        </Link>
+      </div>
 
      {/* 学習アドバイス */}
-     <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-       <h3 className="text-lg font-semibold text-blue-800 mb-3">
-         📚 さらなる学習のために
-       </h3>
-       <div className="text-blue-700 space-y-2">
-         {result.percentage < 70 && (
-           <p>• 間違えた問題の解説をもう一度確認してみましょう</p>
-         )}
-         <p>• 県警のサイバーセキュリティ啓発ページで詳しい情報をチェック</p>
-         <p>• 定期的にクイズに挑戦して知識を定着させましょう</p>
-         <p>• 家族や友人とも一緒にクイズに挑戦してみてください</p>
-       </div>
-     </div>
-   </div>
- )
+      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-blue-800 mb-3">
+          📚 さらなる学習のために
+        </h3>
+        <div className="text-blue-700 space-y-2">
+          {result.percentage < 70 && (
+            <p>• 間違えた問題の解説をもう一度確認してみましょう</p>
+          )}
+          <p>• 県警のサイバーセキュリティ啓発ページで詳しい情報をチェック</p>
+          <p>• 定期的にクイズに挑戦して知識を定着させましょう</p>
+          <p>• 家族や友人とも一緒にクイズに挑戦してみてください</p>
+        </div>
+      </div>
+    </div>
+  )
 }
