@@ -88,36 +88,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 特徴セクション */}
-      <div className="grid md:grid-cols-3 gap-8 mb-16 w-full max-w-5xl">
-        {[
-          {
-            icon: <Play className="w-12 h-12 mx-auto text-green-400 mb-4 animate-bounce" />,
-            title: "すぐに開始",
-            desc: "ユーザー登録不要"
-          },
-          {
-            icon: <Trophy className="w-12 h-12 mx-auto text-yellow-400 mb-4 animate-bounce delay-100" />,
-            title: "学習効果",
-            desc: "各問題に詳しい解説付き"
-          },
-          {
-            icon: <Shield className="w-12 h-12 mx-auto text-cyan-400 mb-4 animate-bounce delay-200" />,
-            title: "実践的",
-            desc: "実際の脅威に基づく内容"
-          }
-        ].map((item, i) => (
-          <div
-            key={i}
-            className="backdrop-blur-md bg-slate-800/30 rounded-xl p-8 text-center border border-slate-600/30 shadow-lg hover:shadow-cyan-400/20 transition-all duration-300 hover:scale-105"
-          >
-            {item.icon}
-            <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-            <p className="text-slate-400">{item.desc}</p>
-          </div>
-        ))}
-      </div>
-
       {/* クイズ開始ボタン */}
       <div className="text-center">
         {selectedDifficulty ? (
