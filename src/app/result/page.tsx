@@ -39,7 +39,7 @@ export default function ResultPage() {
     if (percentage >= 90) return { message: "素晴らしい！", color: "text-green-300", icon: "🏆" }
     if (percentage >= 70) return { message: "よくできました！", color: "text-blue-300", icon: "🎉" }
     if (percentage >= 50) return { message: "もう少し頑張りましょう", color: "text-yellow-300", icon: "📚" }
-    return { message: "復習が必要です", color: "text-red-300", icon: "💪" }
+    return { message: "復習しましょう", color: "text-red-300", icon: "💪" }
   }
 
   const scoreInfo = getScoreMessage(result.percentage)
