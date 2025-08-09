@@ -1,17 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { CheckCircle, XCircle, Clock, ArrowRight } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { CheckCircle, XCircle, ArrowRight } from 'lucide-react'
 import { useQuiz } from '../../../lib/useQuiz'
-
-export const metadata = {
-  title: 'クイズ実行中 | 茨城県警セキュリティクイズ',
-  description: 'サイバーセキュリティに関するクイズに挑戦中です',
-}
 
 export default function QuizPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const difficulty = searchParams.get('difficulty') as 'easy' | 'medium' | 'hard' | null
+  
   const { 
     currentQuestion, 
     quizState, 
@@ -24,44 +22,49 @@ export default function QuizPage() {
   
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
-  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
+  const [canProceed, setCanProceed] = useState(false)
 
   useEffect(() => {
     if (!loading && !error && quizState.quizStatus === 'idle') {
-      startQuiz()
+      startQuiz(difficulty || undefined)
     }
-  }, [loading, error, quizState.quizStatus, startQuiz])
+  }, [loading, error, quizState.quizStatus, startQuiz, difficulty])
 
   useEffect(() => {
     if (quizState.quizStatus === 'finished') {
+      const difficultyLabel = difficulty === 'easy' ? '初級' : difficulty === 'medium' ? '中級' : '上級'
       sessionStorage.setItem('quizResult', JSON.stringify({
         totalQuestions: quizState.answeredQuestions.length,
         correctAnswers: quizState.score,
         score: quizState.score,
         percentage: Math.round((quizState.score / quizState.answeredQuestions.length) * 100),
-        answeredQuestions: quizState.answeredQuestions
+        answeredQuestions: quizState.answeredQuestions,
+        difficulty: difficultyLabel
       }))
       router.push('/result')
     }
-  }, [quizState.quizStatus, quizState.score, quizState.answeredQuestions, router])
+  }, [quizState.quizStatus, quizState.score, quizState.answeredQuestions, router, difficulty])
 
   const handleAnswerSelect = (answer: string) => {
     if (selectedAnswer || showExplanation) return
     
     setSelectedAnswer(answer)
     setShowExplanation(true)
+    setCanProceed(true)
+  }
+
+  const handleNextQuestion = () => {
+    if (!canProceed) return
     
-    setTimeout(() => {
-      answerQuestion(answer)
-      setSelectedAnswer(null)
-      setShowExplanation(false)
-      setQuestionStartTime(Date.now())
-    }, 3000)
+    answerQuestion(selectedAnswer!)
+    setSelectedAnswer(null)
+    setShowExplanation(false)
+    setCanProceed(false)
   }
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white">
         <div className="text-center animate-fadeIn">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4"></div>
           <p className="text-cyan-200">クイズを読み込み中...</p>
@@ -72,8 +75,8 @@ export default function QuizPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
-        <div className="backdrop-blur-md bg-white/10 border border-red-500/30 text-center rounded-xl p-8 shadow-lg">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center">
+        <div className="backdrop-blur-md bg-slate-800/50 border border-red-500/30 text-center rounded-xl p-8 shadow-lg">
           <XCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
           <h2 className="text-xl font-semibold text-white mb-2">エラーが発生しました</h2>
           <p className="text-red-300 mb-4">{error}</p>
@@ -90,24 +93,30 @@ export default function QuizPage() {
 
   if (!currentQuestion) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center">
         <p className="text-cyan-200">問題が見つかりません。</p>
       </div>
     )
   }
 
   const isCorrectAnswer = selectedAnswer === currentQuestion.answer
+  const difficultyLabel = difficulty === 'easy' ? '初級' : difficulty === 'medium' ? '中級' : '上級'
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white px-4 py-8">
       
       {/* プログレスバー */}
       <div className="max-w-3xl mx-auto mb-8">
         <div className="flex justify-between items-center mb-2 text-cyan-200 text-sm font-medium">
           <span>問題 {quizState.currentQuestionIndex + 1} / {quizState.answeredQuestions.length + 1}</span>
-          <span>スコア: {quizState.score} / {quizState.answeredQuestions.length + 1}</span>
+          <div className="flex items-center gap-4">
+            <span className="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded text-xs">
+              {difficultyLabel}
+            </span>
+            <span>スコア: {quizState.score} / {quizState.answeredQuestions.length + 1}</span>
+          </div>
         </div>
-        <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
+        <div className="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
           <div 
             className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 transition-all duration-300"
             style={{ width: `${progress}%` }}
@@ -116,7 +125,7 @@ export default function QuizPage() {
       </div>
 
       {/* 問題カード */}
-      <div className="max-w-3xl mx-auto backdrop-blur-md bg-white/10 rounded-xl p-8 shadow-lg border border-white/20">
+      <div className="max-w-3xl mx-auto backdrop-blur-md bg-slate-800/50 rounded-xl p-8 shadow-lg border border-slate-600/30">
         <div className="mb-6">
           <div className="flex items-center mb-4">
             <span className="bg-cyan-500/20 text-cyan-300 text-xs font-medium px-2.5 py-0.5 rounded-full">
@@ -144,13 +153,13 @@ export default function QuizPage() {
             let buttonClass = "w-full p-4 text-left rounded-lg border-2 transition-all duration-300 backdrop-blur-sm"
 
             if (!selectedAnswer) {
-              buttonClass += " border-white/20 hover:border-cyan-400 hover:bg-cyan-400/10"
+              buttonClass += " border-slate-600/30 hover:border-cyan-400 hover:bg-cyan-400/10"
             } else if (choice === currentQuestion.answer) {
               buttonClass += " border-green-400 bg-green-400/10 text-green-300"
             } else if (choice === selectedAnswer && !isCorrectAnswer) {
               buttonClass += " border-red-400 bg-red-400/10 text-red-300"
             } else {
-              buttonClass += " border-white/10 bg-white/5 text-gray-400"
+              buttonClass += " border-slate-700/30 bg-slate-800/30 text-slate-400"
             }
 
             return (
@@ -181,17 +190,20 @@ export default function QuizPage() {
               <div className={`w-6 h-6 mr-3 mt-0.5 ${isCorrectAnswer ? 'text-green-400' : 'text-red-400'}`}>
                 {isCorrectAnswer ? <CheckCircle /> : <XCircle />}
               </div>
-              <div>
+              <div className="flex-1">
                 <h3 className={`font-semibold mb-2 ${isCorrectAnswer ? 'text-green-300' : 'text-red-300'}`}>
                   {isCorrectAnswer ? '正解です！' : '不正解です'}
                 </h3>
-                <p className="text-gray-200 leading-relaxed">
+                <p className="text-slate-200 leading-relaxed mb-4">
                   {currentQuestion.explanation}
                 </p>
-                <div className="mt-4 flex items-center text-sm text-gray-400">
-                  <Clock className="w-4 h-4 mr-1" />
-                  3秒後に次の問題に進みます...
-                </div>
+                <button
+                  onClick={handleNextQuestion}
+                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-full hover:from-blue-500 hover:to-cyan-500 transition-all duration-300"
+                >
+                  次の問題へ
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </button>
               </div>
             </div>
           </div>

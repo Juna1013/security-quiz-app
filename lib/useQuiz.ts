@@ -3,7 +3,18 @@
 import { useState, useEffect, useCallback } from 'react'
 import { QuizQuestion, QuizState, AnsweredQuestion } from '../types/quiz'
 
+// Fisher-Yates シャッフルアルゴリズム
+const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    }
+    return shuffled
+}
+
 export const useQuiz = () => {
+    const [allQuestions, setAllQuestions] = useState<QuizQuestion[]>([])
     const [questions, setQuestions] = useState<QuizQuestion[]>([])
     const [quizState, setQuizState] = useState<QuizState>({
         currentQuestionIndex: 0,
@@ -23,7 +34,7 @@ export const useQuiz = () => {
                     throw new Error('クイズデータの読み込みに失敗しました')
                 }
                 const data: QuizQuestion[] = await response.json()
-                setQuestions(data)
+                setAllQuestions(data)
                 setLoading(false)
             } catch (err) {
                 setError(err instanceof Error ? err.message : '未知のエラーが発生しました')
@@ -34,15 +45,25 @@ export const useQuiz = () => {
         loadQuestions()
     }, [])
 
-    // クイズ開始
-    const startQuiz = useCallback(() => {
-    setQuizState({
-        currentQuestionIndex: 0,
-        score: 0,
-        answeredQuestions: [],
-        quizStatus: 'playing'
-    })
-    }, [])
+    // 難易度でフィルタリングしてクイズ開始
+    const startQuiz = useCallback((difficulty?: 'easy' | 'medium' | 'hard') => {
+        let filteredQuestions = allQuestions
+        
+        if (difficulty) {
+            filteredQuestions = allQuestions.filter(q => q.difficulty === difficulty)
+        }
+        
+        // 問題をシャッフル
+        const shuffledQuestions = shuffleArray(filteredQuestions)
+        
+        setQuestions(shuffledQuestions)
+        setQuizState({
+            currentQuestionIndex: 0,
+            score: 0,
+            answeredQuestions: [],
+            quizStatus: 'playing'
+        })
+    }, [allQuestions])
 
     // 回答処理
     const answerQuestion = useCallback((selectedAnswer: string) => {
@@ -73,6 +94,7 @@ export const useQuiz = () => {
 
     // クイズリセット
     const resetQuiz = useCallback(() => {
+        setQuestions([])
         setQuizState({
             currentQuestionIndex: 0,
             score: 0,
@@ -85,6 +107,7 @@ export const useQuiz = () => {
     const progress = questions.length > 0 ? ((quizState.currentQuestionIndex + 1) / questions.length) * 100 : 0
 
     return {
+        allQuestions,
         questions,
         quizState,
         currentQuestion,
