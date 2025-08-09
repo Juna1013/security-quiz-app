@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { CheckCircle, XCircle, ArrowRight } from 'lucide-react'
 import { useQuiz } from '../../../lib/useQuiz'
 
-export default function QuizPage() {
+// QuizContent コンポーネントを分離
+function QuizContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const difficulty = searchParams.get('difficulty') as 'easy' | 'medium' | 'hard' | null
@@ -210,5 +211,26 @@ export default function QuizPage() {
         )}
       </div>
     </div>
+  )
+}
+
+// ローディングコンポーネント
+function QuizLoading() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white">
+      <div className="text-center animate-fadeIn">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+        <p className="text-cyan-200">クイズを準備中...</p>
+      </div>
+    </div>
+  )
+}
+
+// メインコンポーネント
+export default function QuizPage() {
+  return (
+    <Suspense fallback={<QuizLoading />}>
+      <QuizContent />
+    </Suspense>
   )
 }

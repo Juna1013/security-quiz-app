@@ -1,4 +1,5 @@
 "use client"
-const ErrorPage = () => {
-    return <h1>500 - Page Sever Error</h1>
+
+export default function ErrorPage() {
+    return <h1>500 - Page Server Error</h1>
 }

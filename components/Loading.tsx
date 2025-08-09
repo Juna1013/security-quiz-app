@@ -2,7 +2,7 @@ interface LoadingProps {
     message?: string
 }
 
-export default function Loading({ message = "読み込み中．．．"}: LoadingProps) {
+export default function Loading({ message = "読み込み中..."}: LoadingProps) {
     return (
         <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
