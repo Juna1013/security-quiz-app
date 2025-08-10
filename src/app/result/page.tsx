@@ -57,22 +57,6 @@ export default function ResultPage() {
           <p className={`text-xl font-semibold mb-4 ${scoreInfo.color}`}>
             {scoreInfo.message}
           </p>
-          
-          {/* スコア表示 */}
-          <div className="flex justify-center items-center space-x-8 mb-6">
-            <div>
-              <div className="text-3xl font-bold text-cyan-300">{result.correctAnswers}</div>
-              <div className="text-sm text-slate-400">正解数</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold">{result.totalQuestions}</div>
-              <div className="text-sm text-slate-400">総問題数</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-green-300">{result.percentage}%</div>
-              <div className="text-sm text-slate-400">正答率</div>
-            </div>
-          </div>
 
           {/* 円形プログレスバー */}
           <div className="flex justify-center mb-6">
@@ -101,6 +85,22 @@ export default function ResultPage() {
               </div>
             </div>
           </div>
+
+          {/* スコア表示 */}
+          <div className="flex justify-center items-center space-x-8 mb-6">
+            <div>
+              <div className="text-3xl font-bold text-cyan-300">{result.correctAnswers}</div>
+              <div className="text-sm text-slate-400">正解数</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold">{result.totalQuestions}</div>
+              <div className="text-sm text-slate-400">問題数</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-green-300">{result.percentage}%</div>
+              <div className="text-sm text-slate-400">正答率</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -108,7 +108,7 @@ export default function ResultPage() {
       <div className="max-w-4xl mx-auto backdrop-blur-md bg-slate-800/50 border border-slate-600/30 rounded-xl p-6 mb-8 shadow-lg">
         <h2 className="text-2xl font-bold mb-6 flex items-center">
           <Award className="w-6 h-6 mr-2 text-cyan-300" />
-          問題別詳細結果
+          解答結果
         </h2>
         
         <div className="space-y-6">
