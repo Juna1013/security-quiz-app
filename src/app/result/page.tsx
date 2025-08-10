@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { RefreshCw, Home, CheckCircle, XCircle, Award } from 'lucide-react'
-import { QuizResult } from '../types/quiz'
+import { QuizResult } from '../../types/quiz'
 import { useApp } from '../../contexts/AppContext'
 
 interface ExtendedQuizResult extends QuizResult {

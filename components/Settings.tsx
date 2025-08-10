@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 import { Settings as SettingsIcon, Moon, Sun, Globe, X } from 'lucide-react'
-import { useApp } from '../../contexts/AppContext'
+import { useApp } from '../src/contexts/AppContext'
 
 export default function Settings() {
   const [isOpen, setIsOpen] = useState(false)
