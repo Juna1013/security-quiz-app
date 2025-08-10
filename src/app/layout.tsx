@@ -1,6 +1,9 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AppProvider } from "../../../contexts/AppContext";
+import Settings from "../../../components/Settings";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,11 +18,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ja">
-      <body className={`${inter.className} bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 min-h-screen`}>
-        <main className="container mx-auto">
-          {children}
-        </main>
+    <html lang="ja" className="dark">
+      <body className={`${inter.className} min-h-screen transition-colors duration-300`}>
+        <AppProvider>
+          <main className="container mx-auto">
+            {children}
+          </main>
+          <Settings />
+        </AppProvider>
       </body>
     </html>
   )

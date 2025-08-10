@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { QuizQuestion, QuizState, AnsweredQuestion } from '../types/quiz'
+import { QuizQuestion, QuizState, AnsweredQuestion } from '../src/types/quiz'
 
 // Fisher-Yates シャッフルアルゴリズム
 const shuffleArray = <T,>(array: T[]): T[] => {
