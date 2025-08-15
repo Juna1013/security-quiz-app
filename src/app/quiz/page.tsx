@@ -140,32 +140,32 @@ function QuizContent() {
         <div className={`flex justify-between items-center mb-2 text-sm font-medium ${
           theme === 'light' ? 'text-blue-700' : 'text-cyan-200'
         }`}>
-          // src/app/quiz/page.tsx (続き)
-         <span>{t('quiz.question')} {quizState.currentQuestionIndex + 1} / {quizState.answeredQuestions.length + 1}</span>
-         <div className="flex items-center gap-4">
-           <span className={`px-2 py-1 rounded text-xs ${
-             theme === 'light' 
-               ? 'bg-blue-100 text-blue-700' 
-               : 'bg-cyan-500/20 text-cyan-300'
-           }`}>
-             {difficultyLabel}
-           </span>
-           <span>{t('quiz.score')}: {quizState.score} / {quizState.answeredQuestions.length + 1}</span>
-         </div>
-       </div>
-       <div className={`w-full rounded-full h-2 overflow-hidden ${
-         theme === 'light' ? 'bg-gray-200' : 'bg-slate-700/50'
-       }`}>
-         <div 
-           className={`h-2 transition-all duration-300 ${
-             theme === 'light' 
-               ? 'bg-gradient-to-r from-blue-500 to-indigo-600' 
-               : 'bg-gradient-to-r from-cyan-400 to-blue-500'
-           }`}
-           style={{ width: `${progress}%` }}
-         ></div>
-       </div>
-     </div>
+          { /* src/app/quiz/page.tsx (続き) */}
+        <span>{t('quiz.question')} {quizState.currentQuestionIndex + 1} / {quizState.answeredQuestions.length + 1}</span>
+        <div className="flex items-center gap-4">
+          <span className={`px-2 py-1 rounded text-xs ${
+            theme === 'light' 
+              ? 'bg-blue-100 text-blue-700' 
+              : 'bg-cyan-500/20 text-cyan-300'
+          }`}>
+            {difficultyLabel}
+          </span>
+          <span>{t('quiz.score')}: {quizState.score} / {quizState.answeredQuestions.length + 1}</span>
+        </div>
+      </div>
+      <div className={`w-full rounded-full h-2 overflow-hidden ${
+        theme === 'light' ? 'bg-gray-200' : 'bg-slate-700/50'
+      }`}>
+        <div 
+          className={`h-2 transition-all duration-300 ${
+            theme === 'light' 
+              ? 'bg-gradient-to-r from-blue-500 to-indigo-600' 
+              : 'bg-gradient-to-r from-cyan-400 to-blue-500'
+          }`}
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+    </div>
 
      {/* 問題カード */}
      <div className={`max-w-3xl mx-auto backdrop-blur-md rounded-xl p-8 shadow-lg border ${
@@ -288,31 +288,31 @@ function QuizContent() {
 
 // ローディングコンポーネント
 function QuizLoading() {
- const { t, theme } = useApp()
- 
- return (
-   <div className={`flex items-center justify-center min-h-screen transition-colors duration-300 ${
-     theme === 'light' 
-       ? 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-800' 
-       : 'bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white'
-   }`}>
-     <div className="text-center animate-fadeIn">
-       <div className={`animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 ${
-         theme === 'light' ? 'border-blue-600' : 'border-cyan-400'
-       }`}></div>
-       <p className={theme === 'light' ? 'text-blue-700' : 'text-cyan-200'}>
-         {t('quiz.loading')}
-       </p>
-     </div>
-   </div>
- )
+  const { t, theme } = useApp()
+
+  return (
+    <div className={`flex items-center justify-center min-h-screen transition-colors duration-300 ${
+      theme === 'light' 
+        ? 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-800' 
+        : 'bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white'
+    }`}>
+      <div className="text-center animate-fadeIn">
+        <div className={`animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 ${
+          theme === 'light' ? 'border-blue-600' : 'border-cyan-400'
+        }`}></div>
+        <p className={theme === 'light' ? 'text-blue-700' : 'text-cyan-200'}>
+          {t('quiz.loading')}
+        </p>
+      </div>
+    </div>
+  )
 }
 
 // メインコンポーネント
 export default function QuizPage() {
- return (
-   <Suspense fallback={<QuizLoading />}>
-     <QuizContent />
-   </Suspense>
- )
+  return (
+    <Suspense fallback={<QuizLoading />}>
+      <QuizContent />
+    </Suspense>
+  )
 }
