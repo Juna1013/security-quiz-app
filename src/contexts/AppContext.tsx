@@ -19,16 +19,15 @@ const translations = {
     // ホーム画面
     'home.title': '茨城県警 CSV',
     'home.subtitle': '実践的な問題で、日常生活で役立つセキュリティスキルを学習できます',
-    'home.selectDifficulty': '難易度を選択してください',
+    'home.selectDifficulty': 'レベルを選択してください',
     'home.easy': '初級',
     'home.medium': '中級',
     'home.hard': '上級',
-    'home.easyDesc': '基本的なセキュリティ知識',
-    'home.mediumDesc': '実践的なセキュリティ対策',
-    'home.hardDesc': '高度なセキュリティ知識',
+    'home.easyDesc': '基礎的なセキュリティ知識について学べます',
+    'home.mediumDesc': '実践的なセキュリティ知識について学べます',
+    'home.hardDesc': '高度なセキュリティ知識について学べます',
     'home.start': 'スタート',
-    'home.selectFirst': '難易度を選択してください',
-    'home.duration': '所要時間: 1-3分程度',
+    'home.duration': '所要時間 約3分',
     'home.random': '問題はランダムで出題されます',
     'home.selected': '選択中',
     
@@ -45,7 +44,7 @@ const translations = {
     'quiz.security': 'セキュリティ',
     
     // 結果画面
-    'result.title': 'クイズ完了！',
+    'result.title': '終了！',
     'result.difficulty': '難易度',
     'result.excellent': '素晴らしい！',
     'result.good': 'よくできました！',
@@ -80,7 +79,6 @@ const translations = {
     'home.mediumDesc': 'Practical security measures',
     'home.hardDesc': 'Advanced security knowledge',
     'home.start': 'Start',
-    'home.selectFirst': 'Please select difficulty level',
     'home.duration': 'Duration: 1-3 minutes',
     'home.random': 'Questions are randomly selected',
     'home.selected': 'Selected',
