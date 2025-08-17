@@ -47,14 +47,14 @@ export default function Home() {
   }
 
   return (
-    <div className={`min-h-screen text-theme-primary flex flex-col items-center justify-center px-4 transition-colors duration-300 ${
+    <div className={`min-h-screen text-theme-primary flex flex-col items-center justify-center px-6 transition-colors duration-300 ${
       theme === 'light' 
         ? 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100' 
         : 'bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900'
     }`}>
       
       {/* ヒーローセクション */}
-      <div className="text-center mb-16 animate-fadeIn">
+      <div className="text-center mb-4 animate-fadeIn">
         <div className="mb-6">
           <Shield className={`w-24 h-24 mx-auto drop-shadow-lg animate-pulse mb-4 ${
             theme === 'light' ? 'text-blue-600' : 'text-cyan-400'
