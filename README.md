@@ -18,7 +18,7 @@
 
 ### ディレクトリ構造
 
-```json
+```bash
 .
 ├── components/
 │   ├── ErrorMessage.tsx
