@@ -219,20 +219,6 @@ export default function ResultPage() {
 
       {/* アクションボタン */}
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <button
-          onClick={() => {
-            sessionStorage.removeItem('quizResult')
-            router.push('/quiz')
-          }}
-          className={`flex items-center justify-center px-6 py-3 font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 ${
-            theme === 'light'
-              ? 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white hover:from-indigo-600 hover:to-blue-700'
-              : 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-blue-500 hover:to-cyan-500'
-          }`}
-        >
-          <RefreshCw className="w-5 h-5 mr-2" />
-          {t('result.tryAgain')}
-        </button>
         <Link
           href="/"
           className={`flex items-center justify-center px-6 py-3 font-semibold rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 ${
