@@ -247,11 +247,12 @@ export default function ResultPage() {
           theme === 'light' ? 'text-slate-700' : 'text-slate-200'
         }`}>
           {result.percentage < 70 && (
-            <p>• 間違えた問題の解説をもう一度確認してみましょう</p>
+            <p>{t('result.answers')}</p>
           )}
-          <p>• 県警のサイバーセキュリティ啓発ページで詳しい情報をチェック</p>
-          <p>• 定期的にクイズに挑戦して知識を定着させましょう</p>
-          <p>• 家族や友人とも一緒にクイズに挑戦してみてください</p>
+          <p>{t('descripton_01')}</p>
+          <p>{t('descripton_02')}</p>
+          <p>{t('descripton_03')}</p>
+          <p>{t('descripton_04')}</p>
         </div>
       </div>
     </div>

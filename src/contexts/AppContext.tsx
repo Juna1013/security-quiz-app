@@ -60,6 +60,10 @@ const translations = {
     'result.tryAgain': 'もう一度挑戦する',
     'result.home': 'ホームに戻る',
     'result.learningTips': 'さらなる学習のために',
+    'descripton_01': '・間違えた問題の解説をもう一度確認してみましょう',
+    'descripton_02': '・県警のサイバーセキュリティ啓発ページで詳しい情報をチェック',
+    'descripton_03': '・定期的にクイズに挑戦して知識を定着させましょう',
+    'descripton_04': '・家族や友人とも一緒にクイズに挑戦してみてください',
     'result.loading': '結果を読み込み中...',
     
     // 共通
@@ -112,6 +116,10 @@ const translations = {
     'result.tryAgain': 'Try Again',
     'result.home': 'Back to Home',
     'result.learningTips': 'For Further Learning',
+    'descripton_01': '・Review the explanations of the questions you answered incorrectly.',
+    'descripton_02': '・Check the prefectural police’s cybersecurity awareness page for more details.',
+    'descripton_03': '・Take the quiz regularly to reinforce your knowledge.',
+    'descripton_04': '・Try the quiz together with your family and friends.',
     'result.loading': 'Loading results...',
     
     // Common
