@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { RefreshCw, Home, CheckCircle, XCircle, Award } from 'lucide-react'
+import { Home, CheckCircle, XCircle, Award } from 'lucide-react'
 import { QuizResult } from '../../types/quiz'
 import { useApp } from '../../contexts/AppContext'
 
@@ -246,10 +246,10 @@ export default function ResultPage() {
         <div className={`space-y-2 ${
           theme === 'light' ? 'text-slate-700' : 'text-slate-200'
         }`}>
-          <p>{t('descripton_01')}</p>
-          <p>{t('descripton_02')}</p>
-          <p>{t('descripton_03')}</p>
-          <p>{t('descripton_04')}</p>
+          <p>{t('description_01')}</p>
+          <p>{t('description_02')}</p>
+          <p>{t('description_03')}</p>
+          <p>{t('description_04')}</p>
         </div>
       </div>
     </div>
