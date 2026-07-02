@@ -14,14 +14,15 @@ function QuizContent() {
   const difficulty = searchParams.get('difficulty') as 'easy' | 'medium' | 'hard' | null
   const { t, theme } = useApp()
   
-  const { 
-    currentQuestion, 
-    quizState, 
-    progress, 
-    loading, 
-    error, 
-    startQuiz, 
-    answerQuestion 
+  const {
+    currentQuestion,
+    questions,
+    quizState,
+    progress,
+    loading,
+    error,
+    startQuiz,
+    answerQuestion
   } = useQuiz()
   
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
@@ -141,7 +142,7 @@ function QuizContent() {
           theme === 'light' ? 'text-blue-700' : 'text-cyan-200'
         }`}>
           { /* src/app/quiz/page.tsx (続き) */}
-        <span>{t('quiz.question')} {quizState.currentQuestionIndex + 1} / {quizState.answeredQuestions.length + 1}</span>
+        <span>{t('quiz.question')} {quizState.currentQuestionIndex + 1} / {questions.length}</span>
         <div className="flex items-center gap-4">
           <span className={`px-2 py-1 rounded text-xs ${
             theme === 'light' 
@@ -150,7 +151,7 @@ function QuizContent() {
           }`}>
             {difficultyLabel}
           </span>
-          <span>{t('quiz.score')}: {quizState.score} / {quizState.answeredQuestions.length + 1}</span>
+          <span>{t('quiz.score')}: {quizState.score} / {questions.length}</span>
         </div>
       </div>
       <div className={`w-full rounded-full h-2 overflow-hidden ${
