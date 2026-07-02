@@ -1,72 +1,146 @@
-# 茨城県警 CSV
+# サイバーセキュリティ啓発クイズアプリ
 
-- 茨城県警のサイバーセキュリティボランティアの啓発イベントにて出展するため
+茨城県警察サイバーセキュリティボランティア（CSV）の啓発イベント向けに開発した、Webブラウザで動くクイズアプリケーションです。
 
-### 機能紹介
+## 開発背景・動機
 
-- クイズの出題と回答受付
-- 回答への即時フィードバックと正解表示
-- 結果画面（成績やメッセージの表示など）
-- データ管理：quizzes.json による問題データ構成
+茨城県警察のサイバーセキュリティボランティア（CSV）として活動する中で、一般市民へのセキュリティ意識啓発イベントに出展する機会をいただきました。来場者がスマートフォンやタブレットから手軽に体験でき、楽しみながらセキュリティ知識を学べるコンテンツとして、このクイズアプリを企画・設計・実装しました。
 
-### 技術スタック
+バックエンドサーバーや認証機能を持たないシンプルな構成にすることで、**イベント会場のネットワーク環境に依存せず安定動作**させることを優先しました。
 
-- フレームワーク：Next.js（TypeScript）
-- スタイリング：Tailwind CSS
-- データ：public/data/quizzes.json を利用したクイズデータ
-- 開発環境設定：ESLint, PostCSS
+## 機能一覧
 
-### ディレクトリ構造
+| 機能 | 説明 |
+| --- | --- |
+| 難易度別クイズ | 初級・中級・上級の3段階から選択 |
+| ランダム出題 | Fisher-Yates シャッフルにより毎回異なる順序で出題 |
+| 即時フィードバック | 回答直後に正誤判定と解説文を表示 |
+| 結果画面 | 正答率・正解数・問題ごとの解説を一覧表示 |
+| ダーク/ライトテーマ | ユーザーの好みやイベント環境に合わせて切り替え可能 |
+| 日本語/英語切り替え | 訪日外国人来場者にも対応した多言語 UI |
+| レスポンシブデザイン | スマートフォン・タブレット・PC で快適に動作 |
 
-```bash
+## 技術スタック
+
+| 項目 | 採用技術 | 選定理由 |
+| --- | --- | --- |
+| フレームワーク | Next.js 15 (App Router) | SSG による高速配信・豊富なエコシステム |
+| 言語 | TypeScript | 型安全により実装ミスを開発段階で検出 |
+| スタイリング | Tailwind CSS | ユーティリティクラスで迅速に一貫したデザインを実現 |
+| 状態管理 | React Hooks (useState / useReducer / Context API) | 外部ライブラリ不要でシンプルに管理 |
+| アイコン | lucide-react | 軽量で視認性の高いアイコンセット |
+| ホスティング | Vercel | Git 連携による自動デプロイ・高速 CDN |
+| クイズデータ | JSON ファイル | サーバーレス構成でバックエンド不要 |
+
+## 実装のポイント
+
+### カスタムフック `useQuiz` による関心の分離
+
+クイズのビジネスロジック（問題読み込み・難易度フィルタ・正誤判定・スコア計算）を `lib/useQuiz.ts` に切り出しました。UI コンポーネントはデータ表示とユーザー操作のみに責任を持つ設計にしています。
+
+### Context API による多言語・テーマ管理
+
+`AppContext` で言語（日本語/英語）とテーマ（ダーク/ライト）を一元管理し、`localStorage` に永続化しています。翻訳関数 `t(key)` を通じて全コンポーネントから文字列を取得する仕組みにより、UI ロジックと文言定義を分離しました。
+
+### セッション間のデータ受け渡し
+
+クイズ終了時に回答済み問題のリストとスコアを `sessionStorage` に保存し、結果ページで読み込む設計を採用しました。URL クエリパラメータにデータを含めずに済み、URLの見通しがよくなります。
+
+### Suspense を用いた URL パラメータの安全な読み取り
+
+Next.js App Router では `useSearchParams()` の使用に `<Suspense>` が必要です。`QuizContent` コンポーネントを `<Suspense>` でラップし、ローディング UI を分離することでこの制約に対応しています。
+
+## システム構成
+
+```text
+ユーザー（ブラウザ）
+    ↓ HTTP
+Vercel CDN（静的配信）
+    ↓
+Next.js App（クライアントサイド動作）
+    ↓ fetch
+/public/data/quizzes.json（クイズデータ）
+```
+
+バックエンドサーバー・データベース・ユーザー認証は一切不要な構成です。
+
+## ディレクトリ構造
+
+```text
 .
 ├── components/
-│   ├── ErrorMessage.tsx
-│   └── Loading.tsx
+│   ├── ErrorMessage.tsx     # エラー表示コンポーネント
+│   ├── Loading.tsx          # ローディングスピナー
+│   └── Settings.tsx         # 言語・テーマ設定 UI
 ├── docs/
+│   ├── design-document.md   # 設計ドキュメント
+│   └── designed-llm.md      # 設計補足
 ├── lib/
-│   └── useQuiz.ts
+│   └── useQuiz.ts           # クイズロジックのカスタムフック
 ├── public/
 │   └── data/
-│       └── quizzes.json
+│       └── quizzes.json     # クイズ問題データ（15問・3難易度）
 ├── src/
-│   └── app/
-│       ├── quiz/
-│       │   └── page.tsx
-│       ├── result/
-│       │   ├── error.tsx
-│       │   ├── page.tsx
-│       │   └── not-found.tsx
-│       └── globals.css
-│       └── layout.tsx
-│       └── page.tsx
-├── types/
-│   └── quiz.ts
-├── README.md
+│   ├── app/
+│   │   ├── layout.tsx       # ルートレイアウト（AppProvider 配置）
+│   │   ├── page.tsx         # ホーム画面（難易度選択）
+│   │   ├── quiz/
+│   │   │   └── page.tsx     # クイズ画面
+│   │   └── result/
+│   │       └── page.tsx     # 結果画面
+│   ├── contexts/
+│   │   └── AppContext.tsx   # 言語・テーマの Context
+│   └── types/
+│       └── quiz.ts          # 型定義
 ├── package.json
-├── tsconfig.json
-└── (その他設定ファイル)
+└── tsconfig.json
 ```
 
-## セットアップ
+## クイズデータ形式
 
-### 必須事項
-- Node.js v18 以上
-- npm または yarn
+```json
+{
+  "id": "security-001",
+  "question": "突破されにくいパスワードは次のうちどれか？",
+  "choices": ["生年月日など個人情報を含むもの", "文字数が極端に少ないもの", "使い回しされているもの", "記号を使用しているもの"],
+  "answer": "記号を使用しているもの",
+  "explanation": "パスワードに記号を使用することで総当たり攻撃の脅威を防ぎやすくなります。",
+  "difficulty": "easy",
+  "category": "パスワード"
+}
+```
 
-### インストール
+現在のデータ: **全15問**（初級・中級・上級 各5問、カテゴリ: パスワード / ランサムウェア）
+
+## ローカル実行手順
+
 ```bash
+# リポジトリをクローン
 git clone https://github.com/Juna1013/security-quiz-app.git
 cd security-quiz-app
-npm install  # または yarn install
+
+# 依存パッケージのインストール
+npm install
+
+# 開発サーバー起動（http://localhost:3000）
+npm run dev
 ```
 
-### 実行
-```bash
-npm run dev  # または yarn dev
-```
+### 本番ビルド
 
-### ビルド
 ```bash
 npm run build && npm run start
 ```
+
+### 必要環境
+
+- Node.js v18 以上
+- npm
+
+## 開発期間
+
+2025年8月 （約2週間）
+
+## 設計ドキュメント
+
+詳細な設計方針・非機能要件・技術スタック選定理由は [docs/design-document.md](docs/design-document.md) を参照してください。

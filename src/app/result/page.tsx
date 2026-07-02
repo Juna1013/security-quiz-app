@@ -246,9 +246,6 @@ export default function ResultPage() {
         <div className={`space-y-2 ${
           theme === 'light' ? 'text-slate-700' : 'text-slate-200'
         }`}>
-          {result.percentage < 70 && (
-            <p>{t('result.answers')}</p>
-          )}
           <p>{t('descripton_01')}</p>
           <p>{t('descripton_02')}</p>
           <p>{t('descripton_03')}</p>
