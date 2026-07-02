@@ -67,7 +67,7 @@ function QuizContent() {
     setCanProceed(false)
   }
 
-  if (loading) {
+  if (loading || quizState.quizStatus === 'finished') {
     return (
       <div className={`flex items-center justify-center min-h-screen transition-colors duration-300 ${
         theme === 'light' 
